@@ -1,0 +1,186 @@
+﻿@model MesaAyudaCEIM5.Models.vistaContactoParticipante
+
+<link href="~/Content/Estilos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Proyectos Participantes";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Hola, @Session["Nombres"].ToString()</h4>
+        </div>
+        <div class="col-md-8 text-right">
+            <div class="btn-group" role="group" aria-label="...">
+                @{
+                    int pry = Model.ProyectoModel.pry_id;
+                }
+                @Html.ActionLink("Buscador", "Principal", "Home", null, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Próximos Proyectos", "ProximosProyectos", "Proyectos", null, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Detalle Proyecto", "Proyectos", "Proyectos", new { pry = pry }, new { @class = "btn btn-primary btn-sm" })
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="page-header">Contacto Participante</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 small">
+                <h4>Detalle Participante</h4>
+                <dl class="dl-horizontal">
+                    <dt>RUT</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.rutdv)</dd>
+                    <dt>Paterno</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.paterno)</dd>
+                    <dt>Materno</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.materno)</dd>
+                    <dt>Nombres</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.nombres)</dd>
+                    <dt>Género</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.genero)</dd>
+                    <dt>Fecha Nacimiento</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.fecha_nacimiento)</dd>
+                    <dt>Celular</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.celular)</dd>
+                    <dt>Correo</dt>
+                    <dd>@Html.DisplayFor(m => m.PersonaModel.correo)</dd>
+                </dl>
+                <h4>Detalle Proyecto</h4>
+                <dl class="dl-horizontal">
+                    <dt>N° Proyecto</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.pry_id)</dd>
+                    <dt>Curso</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                    <dt>Código</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_codigo_producto)</dd>
+                    <dt>Sede</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_sede)</dd>
+                    <dt>Linea de Negocio</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_linea)</dd>
+                    <dt>Área</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_area)
+                    <dt>Estado</dt>
+                    <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_estado_proyecto)">@Html.DisplayFor(m => m.ProyectoModel.nombre_estado_proyecto)</span></dd>
+                    <dt>Curso</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                    <dt>Modalidad</dt>
+                    <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_modalidad)">@Html.DisplayFor(m => m.ProyectoModel.nombre_modalidad_proyecto)</span></dd>
+                    <dt>Inicio</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.inicio_ejecucion) @Html.DisplayFor(m => m.ProyectoModel.hora_inicio)</dd>
+                    <dt>Termino</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.termino_ejecucion)</dd>
+                    <dt>Usuario</dt>
+                    <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_persona_usuario)</dd>
+                </dl>
+                <h4>Actualización Datos Contacto</h4>
+                    @using (Html.BeginForm("DatosContactoParticipante", "Proyectos"))
+                    {
+                        @Html.ValidationSummary(true);
+
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.PersonaModel.correo, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.PersonaModel.celular, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />-->
+                                @Html.HiddenFor(m => m.ContactoParticipanteModel.pyp_id)
+                                </div>
+                    }
+            </div>
+            <div class="col-md-6 small">
+                    <h4>Encuesta Proactiva</h4>
+
+                    @using (Html.BeginForm("ContactoParticipante", "Proyectos"))
+                    {
+                        @Html.ValidationSummary(true);
+
+
+                        <h5>Invitación</h5>
+                        <p>¿Recibió el correo de invitación al curso(s)?  Remitente: comunicaciones@ceim.cl</p>
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.invitacion, "1") SI
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.invitacion, "2") NO
+                            </div>
+                        </div>
+                        <h5>Nivel Tecnológico</h5>
+                        <p>¿Cuál considera ud. que es su nivel tecnológico?</p>
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.nivel_tecnologico, "1") Bajo
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.nivel_tecnologico, "2") Medio
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.nivel_tecnologico, "3") Alto
+                            </div>
+                        </div>
+                        <p>¿Requiere asistencia para conectarse?</p>
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.requiere_asistencia, "1") SI
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.requiere_asistencia, "2") NO
+                            </div>
+                        </div>
+                        <h5>Tipo Dispositivo</h5>
+                        <p>¿Qué dispositivo utilizará?</p>
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_dispositivo, "1") Computador
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_dispositivo, "2") Tablet
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_dispositivo, "3") Celular
+                            </div>
+                        </div>
+
+                        <h5>Conexión</h5>
+                        <p>¿De dónde se conectará?</p>
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_conexion, "1") Casa Red Fija
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_conexion, "2") Red Movil
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_conexion, "3") Trabajo
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.tipo_conexion, "4") Ciber
+                            </div>
+                        </div>
+
+                        <h5>Dispositivos Externos</h5>
+                        <p>¿Utilizará cámara y/o micrófono internos del dispositivo?</p>
+                        <div class="form-group">
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.dispositivos_externos, "1") SI
+                            </div>
+                            <div class="radio-inline">
+                                @Html.RadioButtonFor(m => m.ContactoParticipanteModel.dispositivos_externos, "2") NO
+                            </div>
+                        </div>
+                        <h5>Observación</h5>
+                        <div class="form-group">
+                            @Html.TextAreaFor(m => m.ContactoParticipanteModel.observacion, new { cols = 80, rows = 5 })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                            @Html.HiddenFor(m => m.ContactoParticipanteModel.pyp_id)
+                        </div>
+
+                    }
+                </div>
+            </div>
+    </div>
+</div>

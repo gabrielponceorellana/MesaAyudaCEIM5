@@ -1,0 +1,160 @@
+﻿@model MesaAyudaCEIM5.Models.vistaProximosProyectos
+
+<link href="~/Content/Estilos.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Proyectos Participantes";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Hola, @Session["Nombres"].ToString()</h4>
+        </div>
+        <div class="col-md-8 text-right">
+            <div class="btn-group" role="group" aria-label="...">
+                @Html.ActionLink("Buscador", "Principal", "Home", null, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Próximos Proyectos", "ProximosProyectos", "Proyectos", null, new { @class = "btn btn-primary btn-sm" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h1 class="page-header">Detalle Proyecto</h1>
+    </div>
+    <div class="row text-right">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+                Envío Informe Proactivo
+            </button>
+            @Html.ActionLink("Informe Proactivo", "InformeProactivo", "Proyectos", new { pry = Model.ProyectoModel.pry_id}, new { @class = "btn btn-info btn-sm" })
+        </div>
+    </div>
+    <div class="row small">
+        <div class="col-md-4">
+            <h4>Detalle Proyecto</h4>
+            <dl class="dl-horizontal">
+                <dt>N° Proyecto</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.pry_id)</dd>
+                <dt>Curso</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                <dt>Código</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_codigo_producto)</dd>
+                <dt>Sede</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_sede)</dd>
+                <dt>Linea de Negocio</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_linea)</dd>
+                <dt>Área</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_area)
+                <dt>Estado</dt>
+                <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_estado_proyecto)">@Html.DisplayFor(m => m.ProyectoModel.nombre_estado_proyecto)</span></dd>
+                <dt>Curso</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                <dt>Modalidad</dt>
+                <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_modalidad)">@Html.DisplayFor(m => m.ProyectoModel.nombre_modalidad_proyecto)</span></dd>
+                <dt>Inicio</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.inicio_ejecucion) @Html.DisplayFor(m => m.ProyectoModel.hora_inicio)</dd>
+                <dt>Termino</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.termino_ejecucion)</dd>
+                <dt>Usuario</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_persona_usuario)</dd>
+            </dl>
+            <h4>Detalle Ejecución</h4>
+            <dl class="dl-horizontal">
+                <dt>Lugar</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_lujar_ejecucion)</dd>
+                <dt>Dirección</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_direccion_ejecucion)</dd>
+                <dt>Comuna</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_comuna_ejecucion)</dd>
+                <dt>Nota Mínima</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nota_minima)%</dd>
+                <dt>Asistencia Mínima</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.asistencia_minima)%</dd>
+            </dl>
+            <h4>Detalle Curso</h4>
+            <dl class="dl-horizontal">
+                <dt>Curso</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.nombre_curso)</dd>
+                <dt>Duración</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.duracion) hrs.</dd>
+                <dt>Área</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.nombre_area)</dd>
+                <dt>Código SENCE</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.codigo_sence)</dd>
+            </dl>
+        </div>
+        <div class="col-md-8">
+            <h4>Detalle Participantes</h4>
+            <table class="table small table-bordered">
+                <tr>
+                    <td>RUT</td>
+                    <td>Nombre</td>
+                    <td>Contacto</td>
+                    <td>Portal Participantes</td>
+                    <td>G Suite Classroom</td>
+                    <td>Empresa</td>
+                </tr>
+                @foreach (var item in Model.ProyectoParticipantes)
+                {
+                    <tr class="@Html.DisplayFor(modelItem => item.clase_tr)">
+                        <td>
+
+                            @{
+                                string titulo = item.rut.ToString() + "-" + item.dv;
+                                int pyp = item.pyp_id;
+                            }
+                            @Html.ActionLink(titulo, "ContactoParticipante", "Proyectos", new { pyp = pyp }, null)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.paterno) @Html.DisplayFor(modelItem => item.materno) @Html.DisplayFor(modelItem => item.nombres)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.correo) <br />
+
+                            @Html.DisplayFor(modelItem => item.celular)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario)<br />@Html.DisplayFor(modelItem => item.password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario_classroom)<br />@Html.DisplayFor(modelItem => item.password_classroom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.rutdv_empresa)<br />@Html.DisplayFor(modelItem => item.razon)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (@Html.BeginForm("EnvioInformeProactivo", "Proyectos", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Envío Informe Proactivo</h4>
+                </div>
+                <div class="modal-body">
+                    Esta seguro de enviar el Informe Proactivo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" name="submit">Close</button>
+                    <button type="submit" value="OK" class="btn btn-success" id="btnAceptar" data-dismiss="modal">OK</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function () {
+    $("#btnAceptar").click(function(){
+        window.location.href = "@Url.Action("EnvioInformeProactivo", "Proyectos", new { pry=Model.ProyectoModel.pry_id })";
+    });
+});
+</script>

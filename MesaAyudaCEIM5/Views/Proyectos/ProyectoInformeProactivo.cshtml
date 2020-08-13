@@ -1,0 +1,123 @@
+﻿@model MesaAyudaCEIM5.Models.vistaProximosProyectos
+
+<link href="~/Content/Estilos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Proyectos Participantes";
+}
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="page-header">Proyecto Informe Proactivo</h1>
+    </div>
+    <div class="row small">
+        <div class="col-md-4">
+            <h4>Detalle Proyecto</h4>
+            <dl class="dl-horizontal">
+                <dt>N° Proyecto</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.pry_id)</dd>
+                <dt>Curso</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                <dt>Código</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_codigo_producto)</dd>
+                <dt>Sede</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_sede)</dd>
+                <dt>Linea de Negocio</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_linea)</dd>
+                <dt>Área</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_area)
+                <dt>Estado</dt>
+                <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_estado_proyecto)">@Html.DisplayFor(m => m.ProyectoModel.nombre_estado_proyecto)</span></dd>
+                <dt>Curso</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                <dt>Modalidad</dt>
+                <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_modalidad)">@Html.DisplayFor(m => m.ProyectoModel.nombre_modalidad_proyecto)</span></dd>
+                <dt>Inicio</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.inicio_ejecucion)</dd>
+                <dt>Termino</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.termino_ejecucion)</dd>
+                <dt>Usuario</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_persona_usuario)</dd>
+            </dl>
+            <h4>Detalle Ejecución</h4>
+            <dl class="dl-horizontal">
+                <dt>Lugar</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_lujar_ejecucion)</dd>
+                <dt>Dirección</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_direccion_ejecucion)</dd>
+                <dt>Comuna</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_comuna_ejecucion)</dd>
+                <dt>Nota Mínima</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nota_minima)%</dd>
+                <dt>Asistencia Mínima</dt>
+                <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.asistencia_minima)%</dd>
+            </dl>
+            <h4>Detalle Curso</h4>
+            <dl class="dl-horizontal">
+                <dt>Curso</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.nombre_curso)</dd>
+                <dt>Duración</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.duracion) hrs.</dd>
+                <dt>Área</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.nombre_area)</dd>
+                <dt>Código SENCE</dt>
+                <dd>@Html.DisplayFor(m => m.CursoModel.codigo_sence)</dd>
+            </dl>
+        </div>
+        <div class="col-md-8">
+            <h4>Detalle Participantes</h4>
+            <table class="table small table-bordered">
+                <tr>
+                    <td>Participante</td>
+                    <td>Gestión</td>
+                    <td>Invitación</td>
+                    <td>Nivel Tecnológico</td>
+                    <td>Requiere Asistencia</td>
+                    <td>Tipo Dispositivo</td>
+                    <td>Tipo Conexión</td>
+                    <td>Dispositivos Internos</td>
+                    <td>Observación</td>
+                </tr>
+                @foreach (var item in Model.ProyectoParticipantesContacto)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.rut)-@Html.DisplayFor(modelItem => item.dv)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.paterno) @Html.DisplayFor(modelItem => item.materno) @Html.DisplayFor(modelItem => item.nombres)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.correo)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.celular)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre_usuario_contacto)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.fecha_contacto)
+                    </td>
+                    <td>
+                        <span class="label label-@Html.DisplayFor(modelItem => item.invitacion_clase_span)">@Html.DisplayFor(modelItem => item.invitacion_respuesta)</span>
+                    </td>
+                    <td>
+                        <span class="label label-@Html.DisplayFor(modelItem => item.nivel_tecnologico_clase_span)">@Html.DisplayFor(modelItem => item.nivel_tecnologico_respuesta)</span>
+                    </td>
+                    <td>
+                        <span class="label label-@Html.DisplayFor(modelItem => item.requiere_asistencia_clase_span)">@Html.DisplayFor(modelItem => item.requiere_asistencia_respuesta)</span>
+                    </td>
+                    <td>
+                        <span class="label label-@Html.DisplayFor(modelItem => item.tipo_dispositivo_clase_span)">@Html.DisplayFor(modelItem => item.tipo_dispositivo_respuesta)</span>
+                    </td>
+                    <td>
+                        <span class="label label-@Html.DisplayFor(modelItem => item.tipo_conexion_clase_span)">@Html.DisplayFor(modelItem => item.tipo_conexion_respuesta)</span>
+                    </td>
+                    <td>
+                        <span class="label label-@Html.DisplayFor(modelItem => item.dispositivos_externos_clase_span)">@Html.DisplayFor(modelItem => item.dispositivos_externos_respuesta)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.observacion)
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

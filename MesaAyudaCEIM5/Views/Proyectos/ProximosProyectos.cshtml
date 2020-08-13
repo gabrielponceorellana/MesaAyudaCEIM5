@@ -1,0 +1,77 @@
+﻿@model MesaAyudaCEIM5.Models.vistaProximosProyectos
+
+<link href="~/Content/Estilos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Proyectos Participantes";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Hola, @Session["Nombres"].ToString()</h4>
+        </div>
+        <div class="col-md-8 text-right">
+            <div class="btn-group" role="group" aria-label="...">
+                @Html.ActionLink("Buscador", "Principal", "Home", null, new { @class = "btn btn-primary btn-sm" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h1 class="page-header">Próximos Proyectos</h1>
+    </div>
+    
+    <div class="row">
+        <table class="table small table-bordered table-hover">
+            <tr>
+                <th align="center">N° Proyecto</th>
+                <th align="center">Sede</th>
+                <th align="center">Línea Negocio</th>
+                <th align="center">Área</th>
+                <th align="center">Estado</th>
+                <th align="center">Curso</th>
+                <th align="center">Inicio Ejecución</th>
+                <th align="center">Fin Ejecución</th>
+                <th align="center">N° Participantes / Bienvenidas / Contactados</th>
+            </tr>
+            @foreach (var item in Model.ProyectoModels)
+            {
+                <tr class="@Html.DisplayFor(modelItem => item.clase_tr)">
+                    <td>
+                        @{
+                            string pry = item.pry_id.ToString();
+                        }
+                        @Html.ActionLink(pry, "Proyectos", "Proyectos", new { pry = pry }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre_sede_sigla)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre_linea_sigla)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre_area_sigla)
+                    </td>
+                    <td>
+
+                        <span class="label label-@Html.DisplayFor(modelItem => item.clase_label_estado_proyecto)">@Html.DisplayFor(modelItem => item.nombre_estado_proyecto)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre_proyecto)
+                        <br />
+                        <span class="label label-@Html.DisplayFor(modelItem => item.clase_label_modalidad)">@Html.DisplayFor(modelItem => item.nombre_modalidad_proyecto)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.inicio_ejecucion) @Html.DisplayFor(modelItem => item.hora_inicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.termino_ejecucion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numero_participantes) / @Html.DisplayFor(modelItem => item.numero_participantes_bienvenida) / @Html.DisplayFor(modelItem => item.numero_participantes_contactado)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,213 @@
+﻿@model MesaAyudaCEIM5.Models.vista_participante
+
+<link href="~/Content/Estilos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Proyectos Participantes";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Hola, @Session["Nombres"].ToString()</h4>
+        </div>
+        <div class="col-md-8 text-right">
+            <div class="btn-group" role="group" aria-label="...">
+
+                @if (Model != null)
+                {
+                    @Html.ActionLink("Buscador", "Volver", "Home", new { id = Model.PersonaModel.rutdv }, new { @class = "btn btn-primary btn-sm" })
+                }
+                @Html.ActionLink("Próximos Proyectos", "ProximosProyectos", "Proyectos", null, new { @class = "btn btn-primary btn-sm" })
+            </div>
+        </div>
+    </div>
+    @if (Model != null)
+        {
+            <div class="row">
+                <h1 class="page-header">Proyectos</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6 small">
+                    <h4>Detalle Participante</h4>
+                    <dl class="dl-horizontal">
+                        <dt>RUT</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.rutdv)</dd>
+                        <dt>Paterno</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.paterno)</dd>
+                        <dt>Materno</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.materno)</dd>
+                        <dt>Nombres</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.nombres)</dd>
+                        <dt>Género</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.genero)</dd>
+                        <dt>Fecha Nacimiento</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.fecha_nacimiento)</dd>
+                        <dt>Celular</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.celular)</dd>
+                        <dt>Correo</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.correo)</dd>
+                    </dl>
+                    <h4>Credenciales Portal Participante</h4>
+                    <dl class="dl-horizontal">
+                        <dt>Usuario</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.usuario)</dd>
+                        <dt>Contraseña</dt>
+                        <dd>@Html.DisplayFor(m => m.PersonaModel.password)</dd>
+                    </dl>
+                    @if (Model.ProyectoModel.mod_id == 3 || Model.ProyectoModel.mod_id == 4)
+                    {
+                        if (!Model.ProyectosCursosParticipanteModel.usuario_classroom.IsEmpty())
+                        {
+                            <h4>Credenciales G Suite Classroom</h4>
+                            <dl class="dl-horizontal">
+                                <dt>Usuario</dt>
+                                <dd>@Html.DisplayFor(m => m.ProyectosCursosParticipanteModel.usuario_classroom)</dd>
+                                <dt>Contraseña</dt>
+                                <dd>@Html.DisplayFor(m => m.PersonaModel.rut)</dd>
+                            </dl>
+                        }
+                        else
+                        {
+                            <h4>Credenciales G Suite Classroom</h4>
+                            <dl class="dl-horizontal">
+                                <dt>Usuario</dt>
+                                <dd>@Html.DisplayFor(m => m.PersonaModel.correo)</dd>
+                                <dt>Contraseña</dt>
+                                <dd>La que conoce el Participante</dd>
+
+                            </dl>
+                        }
+                    }
+
+
+                    <h4>Detalle Empresa</h4>
+                    <dl class="dl-horizontal">
+                        <dt>RUT</dt>
+                        <dd>@Html.DisplayFor(m => m.EmpresaModel.rutdv)</dd>
+                        <dt>Razón Social</dt>
+                        <dd>@Html.DisplayFor(m => m.EmpresaModel.razon)</dd>
+                    </dl>
+
+                    <h4>Detalle Proyecto</h4>
+                    <dl class="dl-horizontal">
+                        <dt>N° Proyecto</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.pry_id)</dd>
+                        <dt>Curso</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                        <dt>Código</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_codigo_producto)</dd>
+                        <dt>Sede</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_sede)</dd>
+                        <dt>Linea de Negocio</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_linea)</dd>
+                        <dt>Área</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_area)
+                        <dt>Estado</dt>
+                        <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_estado_proyecto)">@Html.DisplayFor(m => m.ProyectoModel.nombre_estado_proyecto)</span></dd>
+                        <dt>Curso</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_proyecto)</dd>
+                        <dt>Modalidad</dt>
+                        <dd><span class="label label-@Html.DisplayFor(m => m.ProyectoModel.clase_label_modalidad)">@Html.DisplayFor(m => m.ProyectoModel.nombre_modalidad_proyecto)</span></dd>
+                        <dt>Inicio</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.inicio_ejecucion)</dd>
+                        <dt>Termino</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.termino_ejecucion)</dd>
+                        <dt>Usuario</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectoModel.nombre_persona_usuario)</dd>
+                    </dl>
+                    <h4>Detalle Ejecución</h4>
+                    <dl class="dl-horizontal">
+                        <dt>Lugar</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_lujar_ejecucion)</dd>
+                        <dt>Dirección</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_direccion_ejecucion)</dd>
+                        <dt>Comuna</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nombre_comuna_ejecucion)</dd>
+                        <dt>Nota Mínima</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.nota_minima)%</dd>
+                        <dt>Asistencia Mínima</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosModel.asistencia_minima)%</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6 small">
+                    <h4>Detalle Curso</h4>
+                    <dl class="dl-horizontal">
+                        <dt>Curso</dt>
+                        <dd>@Html.DisplayFor(m => m.CursoModel.nombre_curso)</dd>
+                        <dt>Duración</dt>
+                        <dd>@Html.DisplayFor(m => m.CursoModel.duracion) hrs.</dd>
+                        <dt>Área</dt>
+                        <dd>@Html.DisplayFor(m => m.CursoModel.nombre_area)</dd>
+                        <dt>Código SENCE</dt>
+                        <dd>@Html.DisplayFor(m => m.CursoModel.codigo_sence)</dd>
+                    </dl>
+                    <h4>Detalle Horario Proyectos</h4>
+                    <dl class="dl-horizontal">
+                        <dt>ID Acción SENCE</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosParticipanteModel.id_accion_sence)</dd>
+                        <dt>Asistencia Final</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosParticipanteModel.asistencia_final)%</dd>
+                        <dt>Evaluación Final</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosParticipanteModel.evaluacion_final)%</dd>
+                        <dt>Situación Final</dt>
+                        <dd>@Html.DisplayFor(m => m.ProyectosCursosParticipanteModel.situcion_final)</dd>
+                    </dl>
+                    <h4>Detalle Evaluaciones</h4>
+                    <table class="table small table-bordered">
+                        <tr>
+                            <td>Evaluación</td>
+                            <td>Porcentaje</td>
+                            <td>Nota</td>
+                        </tr>
+                        @foreach (var item in Model.ProyectosCursosEvaluacionesModel)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombre_plan_evaluacion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.porcentaje_plan_evalacion)%
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nota)%
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <h4>Detalle Horario Proyectos</h4>
+                    <div style="width: 99%; height: 350px; overflow-y: scroll;">
+                        <table class="table small table-bordered">
+                            <tr>
+                                <td>Día</td>
+                                <td>Desde</td>
+                                <td>Hasta</td>
+                                <td>Instructor(a)</td>
+                                <td>Asistencia</td>
+                            </tr>
+                            @foreach (var item in Model.ProyectosCursosHorariosModel)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.desde)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.hasta)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.nombre_instructor)
+                                    </td>
+                                    <td>
+                                        <span class="@Html.DisplayFor(modelItem => item.asistencia_icono) fa-2x"></span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+</div>
